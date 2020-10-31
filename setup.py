@@ -17,7 +17,7 @@ exec(compile(open("pymathics/hello/version.py").read(), "version.py", "exec"))
 is_PyPy = platform.python_implementation() == "PyPy"
 
 setup(
-    name="pymathics-test",
+    name="pymathics-hello",
     version=__version__,
     packages=[
         "pymathics.hello",
@@ -34,6 +34,7 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Scientific/Engineering",

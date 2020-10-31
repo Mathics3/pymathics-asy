@@ -29,15 +29,16 @@ If you don't get an error, you should then be able to run:
 
 import os
 from mathics.builtin.base import Builtin, Symbol, String, Predefined
+from pymathics.hello.version import __version__
 
 # To be recognized as an external mathics module, the following variable
 # is required:
 #
 pymathics_version_data = {
-    "author": "Juan Mauricio Matera",
-    "version": "1.0.0",
+    "author": "The Mathics Team",
+    "version": __version__,
     "requires": [],
-}  # Maybe this field is useful.
+}
 
 
 class Hello(Builtin):

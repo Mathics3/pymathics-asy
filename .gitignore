@@ -1,4 +1,5 @@
 *~
-__pycache__
 /.python-version
+/pymathics_hello.egg-info
 /pymathics_test.egg-info
+__pycache__
