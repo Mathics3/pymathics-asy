@@ -31,6 +31,8 @@ import os
 from mathics.builtin.base import Builtin, Symbol, String, Predefined
 from pymathics.hello.version import __version__
 
+__all__ = ("__version__", "Hello", "HelloUser", "pymathics_version_data")
+
 # To be recognized as an external mathics module, the following variable
 # is required:
 #
@@ -51,10 +53,6 @@ class Hello(Builtin):
      = Hello, World!
     """
 
-    context = "PyMathics`"
-
-    attributes = ("Protected", "OneIdentity")
-
     def apply(self, person, evaluation):
         "PyMathics`Hello[person_]"
         return String("Hello, %s!" % person)
@@ -70,7 +68,6 @@ class HelloUser(Predefined):
      = ...
     """
 
-    context = "PyMathics`"
     name = "$HelloUser"
 
     def evaluate(self, evaluation) -> String:
