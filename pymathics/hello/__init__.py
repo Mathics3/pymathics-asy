@@ -28,10 +28,10 @@ If you don't get an error, you should then be able to run:
 """
 
 import os
-from mathics.builtin.base import Builtin, Symbol, String, Predefined
 from pymathics.hello.version import __version__
+from pymathics.hello.__main__ import Hello # noqa
 
-__all__ = ("__version__", "Hello", "HelloUser", "pymathics_version_data")
+__all__ = ("__version__", "Hello", "pymathics_version_data")
 
 # To be recognized as an external mathics module, the following variable
 # is required:
@@ -41,34 +41,3 @@ pymathics_version_data = {
     "version": __version__,
     "requires": [],
 }
-
-
-class Hello(Builtin):
-    """
-    <dl>
-      <dt>'Hello'[$person$]
-      <dd>An example function in a Python-importable Mathics module.
-    </dl>
-    >> PyMathics`Hello["World"]
-     = Hello, World!
-    """
-
-    def apply(self, person, evaluation):
-        "PyMathics`Hello[person_]"
-        return String("Hello, %s!" % person)
-
-
-class HelloUser(Predefined):
-    """
-    <dl>
-       <dt>'$PyMathics`HelloUser'
-       <dd>An example prefined string in a Python-importable Mathics module.
-    </dl>
-    >> Pymathics`HelloUser
-     = ...
-    """
-
-    name = "$HelloUser"
-
-    def evaluate(self, evaluation) -> String:
-        return String(os.getlogin())
