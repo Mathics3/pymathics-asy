@@ -8,11 +8,12 @@ GIT2CL ?= admin-tools/git2cl
 PYTHON ?= python3
 PIP ?= pip3
 RM  ?= rm
-LANG ?= en
+LANG = en
 
 .PHONY: all build \
    check clean \
    develop dist doc doc-data \
+   pypi-setup \
    pytest \
    rmChangeLog \
    test
@@ -24,15 +25,20 @@ all: develop
 build:
 	$(PYTHON) ./setup.py build
 
+#: Check Python version, and install PyPI dependencies
+pypi-setup:
+	$(PIP) install -e .
+
 #: Set up to run from the source tree
-develop:
+develop: pypi-setup
 	$(PIP) install -e .
 
 #: Install mathics
 install:
 	$(PYTHON) setup.py install
 
-check: pytest doctest djangotest gstest
+# Run tests
+check: pytest doctest
 
 #: Remove derived files
 clean: clean-pyc
