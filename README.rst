@@ -1,7 +1,7 @@
 Test PyMathics module
 
 This is a Python module for Mathics that is an simple "Hello, World" example
-that is typically used as a minimal example to for demonstration purposes.
+that is typically used as a minimal example to for demonstration.
 
 Here we are demonstrating how to write a PyMathics module.
 
