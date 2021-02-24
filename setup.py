@@ -19,16 +19,6 @@ exec(compile(open("pymathics/asy/version.py").read(), "version.py", "exec"))
 
 is_PyPy = platform.python_implementation() == "PyPy"
 
-try:
-    import mathics
-except:
-    print("Mathics is not available in this system.")
-    sys.exit(-1)
-
-mathics_path = osp.normcase(osp.dirname(osp.abspath(mathics.__file__)))
-mathics_path = osp.realpath(mathics_path)
-
-
 setup_path = osp.normcase(osp.dirname(osp.abspath(__file__)))
 setup_path = osp.realpath(setup_path)
 
@@ -62,6 +52,18 @@ setup(
 
 
 # Install autoload path
+
+
+try:
+    import mathics
+except:
+    print("Mathics is not available in this system.")
+    sys.exit(-1)
+
+mathics_path = osp.normcase(osp.dirname(osp.abspath(mathics.__file__)))
+mathics_path = osp.realpath(mathics_path)
+
+
 
 autoload_path = osp.join(setup_path, "autoload")
 setup_path_len = len(setup_path)+1
