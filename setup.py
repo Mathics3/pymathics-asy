@@ -4,6 +4,9 @@
 import sys
 import platform
 import os
+from os import walk
+import os.path as osp
+import shutil
 from setuptools import setup, find_namespace_packages
 
 # Ensure user has the correct Python version
@@ -12,12 +15,26 @@ if sys.version_info < (3, 6):
     sys.exit(-1)
 
 # stores __version__ in the current namespace
-exec(compile(open("pymathics/hello/version.py").read(), "version.py", "exec"))
+exec(compile(open("pymathics/asy/version.py").read(), "version.py", "exec"))
 
 is_PyPy = platform.python_implementation() == "PyPy"
 
+try:
+    import mathics
+except:
+    print("Mathics is not available in this system.")
+    sys.exit(-1)
+
+mathics_path = osp.normcase(osp.dirname(osp.abspath(mathics.__file__)))
+mathics_path = osp.realpath(mathics_path)
+
+
+setup_path = osp.normcase(osp.dirname(osp.abspath(__file__)))
+setup_path = osp.realpath(setup_path)
+
+
 setup(
-    name="pymathics-hello",
+    name="pymathics-asy",
     version=__version__,
     packages=find_namespace_packages(include=["pymathics.*"]),
     install_requires=["mathics3>=1.1.0"],
@@ -42,3 +59,24 @@ setup(
     ],
     # TODO: could also include long_description, download_url,
 )
+
+
+# Install autoload path
+
+autoload_path = osp.join(setup_path, "autoload")
+setup_path_len = len(setup_path)+1
+
+for path, folders, files in walk(autoload_path):
+    relpath = path[setup_path_len:]
+    for folder in folders:
+        dest = osp.join(mathics_path, relpath, folder)
+        if not osp.exists(dest):
+            os.mkdir(dest)
+    for filename in files:
+        dest = osp.join(mathics_path, relpath, filename)
+        src = osp.join(setup_path, relpath, filename)
+        if osp.exists(dest):
+            if os.path.samefile(src, dest):
+                continue
+            os.remove(dest)
+        shutil.copy2(src, dest)
