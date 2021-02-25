@@ -25,10 +25,11 @@ jobs:
         brew install asymptote
         python -m pip install --upgrade pip
         LLVM_CONFIG=/usr/local/Cellar/llvm@9/9.0.1_2/bin/llvm-config pip install llvmlite
-    - name: Install Mathics
+        python -m pip install -e git://github.com/mathics/Mathics.git#egg=Mathics3
+    - name: Install Package
       run: |
         make develop
-    - name: Test Mathics
+    - name: Test Package
       run: |
         pip install pytest pexpect
         make -j3 check
