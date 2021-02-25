@@ -7,17 +7,21 @@ This module provides a replacement for the graphics subsystem using asymptote to
 """
 
 import os
-from pymathics.asygraphics.version import __version__
-from pymathics.asygraphics.__main__ import Hello # noqa
+from pymathics.asy.version import __version__
 from pymathics.asy.exportasy import (ExportToJPG,
                                      ExportToPNG,
                                      ExportToSVG,
                                      ExportToPDF)
+from mathics.builtin.importexport import Export as MathicsExport
 __all__ = ("__version__", "ExportToJPG", "ExportToPNG", "ExportToSVG", "ExportToPDF", "pymathics_version_data")
 
 # To be recognized as an external mathics module, the following variable
 # is required:
 #
+MathicsExport._extdict["pdf"] = "PDF"
+
+
+
 pymathics_version_data = {
     "author": "The Mathics Team",
     "version": __version__,
