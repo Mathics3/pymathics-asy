@@ -26,7 +26,6 @@ jobs:
         python -m pip install -e git://github.com/mathics/Mathics.git#egg=Mathics3
     - name: Install Package
       run: |
-        sed -i "s/'sympy==[0-9]\.[0-9]\.[0-9]', //" setup.py
         make develop
     - name: Test Package
       run: |
