@@ -38,7 +38,8 @@ install:
 	$(PYTHON) setup.py install
 
 # Run tests
-check: pytest doctest
+check: pytest 
+# doctest
 
 #: Remove derived files
 clean: clean-pyc
@@ -57,8 +58,8 @@ pytest:
 # 	$(PYTHON) mathics/test.py -ot -k
 
 #: Run tests that appear in docstring in the code.
-doctest:
-	$(PYTHON) mathics/test.py $o
+# doctest:
+#	$(PYTHON) mathics/test.py $o
 
 # #: Make Mathics PDF manual
 # doc mathics.pdf: mathics/doc/tex/data
