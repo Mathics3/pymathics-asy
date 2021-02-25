@@ -26,7 +26,7 @@ setup_path = osp.realpath(setup_path)
 setup(
     name="pymathics-asy",
     version=__version__,
-    packages=find_namespace_packages(include=["pymathics.*"]),
+    packages=find_namespace_packages(include=["pymathics.asy.*"]),
     install_requires=["mathics3>=1.1.0"],
     # don't pack Mathics in egg because of media files, etc.
     zip_safe=False,
