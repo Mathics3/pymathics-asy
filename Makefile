@@ -26,11 +26,11 @@ build:
 	$(PYTHON) ./setup.py build
 
 #: Check Python version, and install PyPI dependencies
-pypi-setup:
-	$(PIP) install -e .
+#pypi-setup:
+#	$(PIP) install -e .
 
 #: Set up to run from the source tree
-develop: pypi-setup
+develop: #pypi-setup
 	$(PIP) install -e .
 
 #: Install mathics
