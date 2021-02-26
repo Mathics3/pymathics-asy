@@ -21,6 +21,7 @@ class _AsyExporter(Builtin):
 
     messages = {"boxerr": "Not able to interpret box `1`",
                 "nowrtacs": "ExportToPDF requires write access.",
+                "asyfld"  :  "Asymptote failed to generate the file",
     }
 
     extension = None
@@ -73,7 +74,7 @@ class _AsyExporter(Builtin):
         try:
             check_call(cmdline, stdout=DEVNULL, stderr=DEVNULL)
         except:
-            evaluation.message("asy failed")
+            evaluation.message(self.get_name(), "asyfld")
             return SymbolFailed
         return SymbolNull
 
@@ -135,6 +136,6 @@ class ExportToJPG(_AsyExporter):
     Then, from the asy set of instructions, a pdf is built
     </dl>
     """
-    extension = "jpg"
+    extension = "jpeg"
     context = "System`Convert`Image`"
 

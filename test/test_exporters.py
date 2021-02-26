@@ -47,12 +47,13 @@ tests = ('A',
 @pytest.mark.parametrize(
     "str_expr, str_expected",
     [ ('LoadModule["pymathics.asy"]', '"pymathics.asy"') ] +\
-    [  (f'Export[$TemporaryDirectory<>"/"<>"{filename}", {test}]',
+    [  ('Export[$TemporaryDirectory<>"/"<>"'+ filename +'", '+ test + ']',
        f'$TemporaryDirectory <> "/" <> "{filename}"')
         for test in tests
-        for filename in ("test.pdf", "test.pdf", "test.png", "test.jpg", "test.svg")
+        for filename in ("test.pdf", "test.png", "test.svg")
     ]
 )
 def test_evaluation(str_expr: str, str_expected: str, message=""):
     check_evaluation(str_expr, str_expected, message)
+
 
