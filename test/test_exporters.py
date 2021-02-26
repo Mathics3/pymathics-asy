@@ -18,18 +18,8 @@ import mathics
 
 import pymathics.asy as asylib
 
-print(asylib.__file__)
 
 session = MathicsSession()
-
-res = Expression("LoadModule", String("pymathics.asy"))
-print("res=",res)
-res = res.evaluate(session.evaluation)
-print("res=", res)
-for out in session.evaluation.out:
-    print(out.__str__())
-print("-----")
-
 
 
 def check_evaluation(str_expr: str, str_expected: str, message=""):
