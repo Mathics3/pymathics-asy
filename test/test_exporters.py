@@ -31,9 +31,13 @@ def check_evaluation(str_expr: str, str_expected: str, message=""):
     print(time.asctime())
     print(message)
     if message:
-        assert result == expected, message
+        if result != expected:
+            print("   result:", result,"\n    expected:", expected)
+        #assert result == expected, message
     else:
-        assert result == expected
+        if result != expected:
+            print("   result:", result,"\n    expected:", expected)
+        #assert result == expected
 
 
 tests = ('A',
@@ -44,16 +48,26 @@ tests = ('A',
          'Evaluate[DensityPlot[Cos[x*y],{x,-1,1},{y,-1,1}]]',
 )
 
-@pytest.mark.parametrize(
-    "str_expr, str_expected",
-    [ ('LoadModule["pymathics.asy"]', '"pymathics.asy"') ] +\
+full_tests = [ ('LoadModule["pymathics.asy"]', '"pymathics.asy"') ] +\
     [  ('Export[$TemporaryDirectory<>"/"<>"'+ filename +'", '+ test + ']',
        f'$TemporaryDirectory <> "/" <> "{filename}"')
         for test in tests
         for filename in ("test.pdf", "test.png", "test.svg")
     ]
-)
+
 def test_evaluation(str_expr: str, str_expected: str, message=""):
     check_evaluation(str_expr, str_expected, message)
 
 
+
+print("trying asy backend")
+from subprocess import DEVNULL, STDOUT, check_call
+import tempfile
+res = check_call(['asy', '--version'], stdout=DEVNULL, stderr=DEVNULL)
+print("check_call result:",res )
+
+print("doing the remaining tests")
+
+for expr, expected in full_tests:
+    print("trying ", expr)
+    test_evaluation(expr, expected)

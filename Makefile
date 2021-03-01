@@ -38,7 +38,7 @@ install:
 	$(PYTHON) setup.py install
 
 # Run tests
-check: pytest 
+check: pytest
 # doctest
 
 #: Remove derived files
@@ -50,7 +50,8 @@ clean-pyc:
 
 #: Run py.test tests. Use environment variable "o" for pytest options
 pytest:
-	py.test test $o
+	python test/test_exporters.py
+#	py.test test $o
 
 
 # #: Create data that is used to in Django docs and to build TeX PDF
