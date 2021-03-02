@@ -36,7 +36,8 @@ from mathics.core.expression import (
 
 from mathics.builtin.graphics import (GRAPHICS_OPTIONS,
                                       GraphicsBox,
-                                      Graphics)
+                                      Graphics,
+                                      asy_number)
 
 
 
@@ -51,7 +52,13 @@ class AsyGraphicsBox(GraphicsBox):
         "asyfail": 'Asymptote failed building the svg picture. Using the buggy backend.',
     }
 
-    def boxes_to_tex(self, leaves, **options):
+    def __init__(self, leaves=None, **kwargs):
+        self._leaves = leaves
+        super().__init__(**kwargs)
+
+    def boxes_to_tex(self, leaves=None, **options):
+        if not leaves:
+            leaves = self._leaves
         elements, calc_dimensions = self._prepare_elements(
             leaves, options, max_width=450
         )
@@ -105,7 +112,10 @@ clip(%s);
         else:
             return "\n\\begin{asy}\n" + tex + "\n\\end{asy}\n"
 
-    def boxes_to_xml(self, leaves, **options):
+    def boxes_to_xml(self, leaves=None, **options):
+        print("self=",self)
+        if leaves is None:
+            leaves = self._leaves
         evaluation = options.get("evaluation", None)
         check_asy = False
         if evaluation:

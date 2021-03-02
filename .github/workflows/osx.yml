@@ -31,5 +31,6 @@ jobs:
         make develop
     - name: Test Package
       run: |
+        python test/test_asy.py
         pip install pytest pexpect
         make -j3 check
