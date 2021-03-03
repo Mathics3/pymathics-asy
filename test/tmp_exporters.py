@@ -46,7 +46,6 @@ def check_evaluation(str_expr: str, str_expected: str, message=""):
             print("   ->OK\n")
         else:
             print("    unexpected result =", result)
-        
 
 
 tests = ['A',
@@ -60,7 +59,7 @@ tests = ['A',
 fileformats = ["test.pdf", 
                "test.svg", 
                "test.png", 
-               #"test.jpg"
+               "test.jpg"
 ]
 
 def format_tests(str_expr: str, str_expected: str, message=""):
