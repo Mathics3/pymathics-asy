@@ -9,14 +9,7 @@ import pytest
 # for some reason I can make the relative load works...
 
 import time
-from mathics.core.parser import parse, MathicsSingleLineFeeder
-from mathics.core.definitions import Definitions
-from mathics.core.evaluation import Evaluation
-from mathics.core.expression import Expression, String
 from mathics.session import MathicsSession
-import mathics
-
-import pymathics.asy as asylib
 
 
 session = MathicsSession()
@@ -24,7 +17,6 @@ session = MathicsSession()
 
 def test_asymptote_cmd():
     from subprocess import DEVNULL, STDOUT, check_call
-    import tempfile
     res = check_call(['asy', '--version'], stdout=DEVNULL, stderr=DEVNULL)
     assert res == 0
 
@@ -43,17 +35,17 @@ def check_evaluation(str_expr: str, str_expected: str, message=""):
 
 
 tests = ['A',
-#         'MatrixForm[{{a,n},{c,d}}]; a+b',
-#         'Integrate[f[x],x]',
-#         'Evaluate[Plot[Cos[x],{x,0,20}]]',
+         'MatrixForm[{{a,n},{c,d}}]; a+b',
+         'Integrate[f[x],x]',
+         'Evaluate[Plot[Cos[x],{x,0,20}]]',
 #         'Evaluate[Plot3D[Cos[x*y],{x,-1,1},{y,-1,1}]]',
-#         'Evaluate[DensityPlot[Cos[x*y],{x,-1,1},{y,-1,1}]]',
+         'Evaluate[DensityPlot[Cos[x*y],{x,-1,1},{y,-1,1}]]',
 ]
 
 fileformats = ["test.pdf", 
                "test.svg", 
-               #"test.png", 
-               #"test.jpg"
+               "test.png", 
+               "test.jpg"
 ]
 
 @pytest.mark.parametrize(
