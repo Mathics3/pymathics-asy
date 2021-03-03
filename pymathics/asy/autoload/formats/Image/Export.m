@@ -1,7 +1,7 @@
 (* Image Exporter *)
 
 Begin["System`Convert`Image`"]
-
+Print["register exporters"]
 ImportExport`RegisterExport[
     "PNG",
 	System`Convert`Image`ExportToPNG,

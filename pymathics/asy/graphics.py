@@ -11,6 +11,7 @@ from math import floor, ceil, log10, sin, cos, pi, sqrt, atan2, degrees, radians
 import json
 import base64
 from itertools import chain
+import numbers
 
 from mathics.builtin.base import (
     Builtin,
@@ -37,7 +38,11 @@ from mathics.core.expression import (
 from mathics.builtin.graphics import (GRAPHICS_OPTIONS,
                                       GraphicsBox,
                                       Graphics,
-                                      asy_number)
+                                      asy_number,
+                                      create_pens,
+                                      RGBColor)
+
+from mathics.builtin.graphics3d import Graphics3DElements
 
 
 
@@ -158,7 +163,8 @@ clip(%s);
 
             svg = svg[svg.find("<svg "):]
             return (
-                '<img  width="%dpx" height="%dpx" src="data:image/svg+xml;base64,%s"/>'
+                '''            
+                <svg width="%d" height="%d" src="data:image/svg+xml;base64,%s"/>                '''
                 % (
                     int(width),
                     int(height),
@@ -201,7 +207,7 @@ clip(%s);
         )
 
         return (
-            '<mglyph width="%dpx" height="%dpx" src="data:image/svg+xml;base64,%s"/>'
+            '<img width="%dpx" height="%dpx" src="data:image/svg+xml;base64,%s"/>'
             % (
                 int(width),
                 int(height),
