@@ -37,7 +37,7 @@ def check_evaluation(str_expr: str, str_expected: str, message=""):
     result = session.evaluate(str_expr)
     expected = session.evaluate(str_expected)
 
-    print(time.asctime())
+#    print(time.asctime())
     print(message)
     if message:
         if result == (expected, message):
@@ -79,7 +79,7 @@ test_inputs = [ ('LoadModule["pymathics.asy"]', '"pymathics.asy"') ] +\
 
 print("  * starting tests")
 
-for expr, expected in []: #test_inputs:
+for expr, expected in test_inputs:
     print("\n", 30*"*")
     print("Expr:", expr)
     print("Expected:", expected)
