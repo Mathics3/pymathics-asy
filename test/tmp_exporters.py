@@ -26,9 +26,9 @@ def test_asymptote_cmd():
     res = check_call(['asy', '--version'], stdout=DEVNULL, stderr=DEVNULL)
     assert res == 0
 
-#print("Try calling asy")
-#test_asymptote_cmd()
-#print(" now the other tests...")
+print("Try calling asy")
+test_asymptote_cmd()
+print(" now the other tests...")
 
 
 def check_evaluation(str_expr: str, str_expected: str, message=""):
