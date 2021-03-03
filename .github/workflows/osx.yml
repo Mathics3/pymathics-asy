@@ -1,4 +1,4 @@
-name: Mathics (OSX)
+name: pymathics-asy (OSX)
 
 on:
   push:

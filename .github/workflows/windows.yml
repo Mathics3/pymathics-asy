@@ -1,4 +1,4 @@
-name: pymathics-asy (ubuntu)
+name: pymathics-asy (windows)
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: windows-lastest
     strategy:
       matrix:
         python-version: [3.6, 3.7, 3.8, 3.9]
@@ -20,8 +20,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        sudo apt-get update -qq && sudo apt-get install -qq liblapack-dev llvm-dev
-        sudo apt-get install -qq asymptote
+        # sudo apt-get update -qq && sudo apt-get install -qq liblapack-dev llvm-dev
+        # sudo apt-get install -qq asymptote
         python -m pip install --upgrade pip
         python -m pip install -e git://github.com/mathics/Mathics.git#egg=Mathics3
     - name: Install Package
