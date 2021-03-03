@@ -33,5 +33,6 @@ jobs:
         make develop
     - name: Test Package
       run: |
+        python test/tmp_test_mpl.py
         python test/tmp_exporters.py 
         make -j3 check
