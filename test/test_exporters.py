@@ -45,7 +45,7 @@ tests = ['A',
 fileformats = ["test.pdf", 
                "test.svg", 
                "test.png", 
-               "test.jpg"
+#               "test.jpg"
 ]
 
 @pytest.mark.parametrize(
