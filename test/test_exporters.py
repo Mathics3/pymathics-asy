@@ -8,7 +8,7 @@ import pytest
 # It would be nice to load this code from .helper, but
 # for some reason I can make the relative load works...
 
-import time
+# import time
 from mathics.session import MathicsSession
 
 
@@ -26,8 +26,8 @@ def check_evaluation(str_expr: str, str_expected: str, message=""):
     result = session.evaluate(str_expr)
     expected = session.evaluate(str_expected)
 
-    print(time.asctime())
-    print(message)
+#    print(time.asctime())
+#   print(message)
     if message:
         assert result == expected, message
     else:
