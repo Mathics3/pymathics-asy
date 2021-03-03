@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 
 
-import sys
-print("  * Loading libraries")
+# import sys
+# print("  * Loading libraries")
 
 # from helper import session, check_evaluation
 # It would be nice to load this code from .helper, but
 # for some reason I can make the relative load works...
 
-import time
+# import time
 # from mathics.core.parser import parse, MathicsSingleLineFeeder
 # from mathics.core.definitions import Definitions
 # from mathics.core.evaluation import Evaluation
@@ -26,9 +26,9 @@ def test_asymptote_cmd():
     res = check_call(['asy', '--version'], stdout=DEVNULL, stderr=DEVNULL)
     assert res == 0
 
-print("Try calling asy")
-test_asymptote_cmd()
-print(" now the other tests...")
+#print("Try calling asy")
+#test_asymptote_cmd()
+#print(" now the other tests...")
 
 
 def check_evaluation(str_expr: str, str_expected: str, message=""):
@@ -79,7 +79,7 @@ test_inputs = [ ('LoadModule["pymathics.asy"]', '"pymathics.asy"') ] +\
 
 print("  * starting tests")
 
-for expr, expected in test_inputs:
+for expr, expected in [] #test_inputs:
     print("\n", 30*"*")
     print("Expr:", expr)
     print("Expected:", expected)
