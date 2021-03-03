@@ -9,14 +9,12 @@ print("  * Loading libraries")
 # for some reason I can make the relative load works...
 
 import time
-from mathics.core.parser import parse, MathicsSingleLineFeeder
-from mathics.core.definitions import Definitions
-from mathics.core.evaluation import Evaluation
-from mathics.core.expression import Expression, String
+# from mathics.core.parser import parse, MathicsSingleLineFeeder
+# from mathics.core.definitions import Definitions
+# from mathics.core.evaluation import Evaluation
+# from mathics.core.expression import Expression, String
 from mathics.session import MathicsSession
-import mathics
 
-import pymathics.asy as asylib
 
 print("  * creating the session")
 
@@ -25,9 +23,13 @@ session = MathicsSession()
 
 def test_asymptote_cmd():
     from subprocess import DEVNULL, STDOUT, check_call
-    import tempfile
     res = check_call(['asy', '--version'], stdout=DEVNULL, stderr=DEVNULL)
     assert res == 0
+
+print("Try calling asy")
+test_asymptote_cmd()
+print(" now the other tests...")
+
 
 def check_evaluation(str_expr: str, str_expected: str, message=""):
     """Helper function to test that a WL expression against
