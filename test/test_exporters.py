@@ -51,7 +51,7 @@ tests = ['A',
 ]
 
 fileformats = ["test.pdf", 
-               #"test.svg", 
+               "test.svg", 
                #"test.png", 
                #"test.jpg"
 ]
