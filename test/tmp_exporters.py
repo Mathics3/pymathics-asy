@@ -79,7 +79,7 @@ test_inputs = [ ('LoadModule["pymathics.asy"]', '"pymathics.asy"') ] +\
 
 print("  * starting tests")
 
-for expr, expected in [] #test_inputs:
+for expr, expected in []: #test_inputs:
     print("\n", 30*"*")
     print("Expr:", expr)
     print("Expected:", expected)
