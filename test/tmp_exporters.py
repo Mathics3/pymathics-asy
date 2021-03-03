@@ -2,7 +2,7 @@
 
 
 import sys
-
+print("  * Loading libraries")
 
 # from helper import session, check_evaluation
 # It would be nice to load this code from .helper, but
@@ -18,6 +18,7 @@ import mathics
 
 import pymathics.asy as asylib
 
+print("  * creating the session")
 
 session = MathicsSession()
 
@@ -47,6 +48,7 @@ def check_evaluation(str_expr: str, str_expected: str, message=""):
         else:
             print("    unexpected result =", result)
 
+print("  * building tests  ")
 
 tests = ['A',
          'MatrixForm[{{a,n},{c,d}}]; a+b',
@@ -73,10 +75,13 @@ test_inputs = [ ('LoadModule["pymathics.asy"]', '"pymathics.asy"') ] +\
         for filename in fileformats
     ]
 
+print("  * starting tests")
+
 for expr, expected in test_inputs:
-    print("\n", 80*"*")
+    print("\n", 30*"*")
     print("Expr:", expr)
     print("Expected:", expected)
     check_evaluation(expr, expected)
-    print(80*"*","\n")
-    
+    print(30*"*","\n")
+
+print("done")
