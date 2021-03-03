@@ -50,7 +50,8 @@ clean-pyc:
 
 #: Run py.test tests. Use environment variable "o" for pytest options
 pytest:
-	py.test test $o
+	py.test test/test_asy.py $o
+	py.test test/test_exporters.py
 
 
 # #: Create data that is used to in Django docs and to build TeX PDF

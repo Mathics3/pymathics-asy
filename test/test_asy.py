@@ -1,7 +1,9 @@
 
 
 import os
-try:
-    os.system("asy -version")
-except:
-    print("failed running asy")
+
+def test_asycmd():
+    try:
+        assert os.system("asy -version") == 0
+    except:
+        assert False
