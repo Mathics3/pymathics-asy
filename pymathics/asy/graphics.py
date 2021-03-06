@@ -127,7 +127,6 @@ clip(%s);
             check_asy = evaluation.definitions.get_ownvalue("Settings`UseAsyForGraphics2D")
             if check_asy:
                 check_asy = check_asy.replace.is_true()
-  
         if check_asy:
             import os
             from subprocess import DEVNULL, STDOUT, check_call
@@ -142,7 +141,7 @@ clip(%s);
         if check_asy:
             asy, width, height = self.boxes_to_tex(leaves, forxml=True, **options)
             fin = os.path.join(tempfile._get_default_tempdir(), next(tempfile._get_candidate_names()))
-            fout = fin + ".svg"
+            fout = fin + ".png"
             try:
                 with open(fin, 'w+') as borrador:
                     borrador.write(asy)
@@ -152,23 +151,25 @@ clip(%s);
 
         if check_asy:
             try:
-                check_call(['asy', '-f', 'svg', '--svgemulation' ,'-o', fout, fin], stdout=DEVNULL, stderr=DEVNULL)
+                # check_call(['asy', '-f', 'svg', '--svgemulation' ,'-o', fout, fin], stdout=DEVNULL, stderr=DEVNULL)
+                check_call(['asy', '-f', 'png', '-render', '16', '-o', fout, fin], stdout=DEVNULL, stderr=DEVNULL)
             except:
                 evaluation.message("GraphicsBox", "asyfail")
                 check_asy = False
 
         if check_asy:
-            with open(fout, 'rt') as ff:
-                svg = ff.read()
+            with open(fout, 'rb') as ff:
+                png = ff.read()
 
-            svg = svg[svg.find("<svg "):]
+            # svg = svg[svg.find("<svg "):]
             return (
-                '''            
-                <svg width="%d" height="%d" src="data:image/svg+xml;base64,%s"/>                '''
+                '''
+                <mglyph width="%d" height="%d" src="data:image/png;base64,%s"/></mglyph>'''
                 % (
                     int(width),
                     int(height),
-                    base64.b64encode(svg.encode("utf8")).decode("utf8"),
+                    base64.b64encode(png).decode("utf8"),
+#                    base64.b64encode(svg.encode("utf8")).decode("utf8"),
                 )
             )
         # Not using asymptote. Continue with the buggy backend...
