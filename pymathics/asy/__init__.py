@@ -29,9 +29,9 @@ ROOT_DIR = pkg_resources.resource_filename('pymathics.asy', '')
 
 def onload(definitions):
     print("onload")
-    from mathics.builtin import box_constructs
-    box_constructs["System`GraphicsBox"] = AsyGraphicsBox(expression=False)
-    box_constructs["System`Graphics3DBox"] = AsyGraphics3DBox(expression=False)
+#    from mathics.builtin import box_constructs
+#    box_constructs["System`GraphicsBox"] = AsyGraphicsBox(expression=False)
+#    box_constructs["System`Graphics3DBox"] = AsyGraphics3DBox(expression=False)
     MathicsExport._extdict["pdf"] = "PDF"
     definitions.set_ownvalue("Settings`UseAsyForGraphics2D", SymbolTrue)
     for root, dirs, files in os.walk(os.path.join(ROOT_DIR, "autoload")):
