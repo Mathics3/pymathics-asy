@@ -7,7 +7,7 @@ ImportExport`RegisterExport[
     "SVG",
 	System`Convert`TextDump`ExportToSVG,
 	FunctionChannels -> {"FileNames"},
-	Options -> {"ByteOrderMark"},
+        Options -> {System`ByteOrderMark,System`ImageSize},
 	DefaultElement -> "Plaintext",
 	BinaryFormat -> False
 ]

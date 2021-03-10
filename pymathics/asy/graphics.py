@@ -60,10 +60,8 @@ class AsyGraphicsBox(GraphicsBox):
     def apply_makeboxes(self, content, evaluation, options):
         """System`MakeBoxes[System`Graphics[content_, OptionsPattern[System`Graphics]],
         System`StandardForm|System`TraditionalForm|System`OutputForm]"""
-        print("Building graphics...")
         gb = self._graphics.apply_makeboxes(content, evaluation, options)
         leaves = gb._leaves
-        print("using leaves=", len(leaves))
         return AsyGraphicsBox(*leaves)
 
     def boxes_to_tex(self, leaves=None, **options):

@@ -6,7 +6,7 @@ ImportExport`RegisterExport[
     "PNG",
 	System`Convert`Image`ExportToPNG,
         FunctionChannels -> {"FileNames"},
-	Options -> {},
+	Options -> {"ImageSize"},
 	BinaryFormat -> True
 ];
 
@@ -14,7 +14,7 @@ ImportExport`RegisterExport[
     "JPEG",
 	System`Convert`Image`ExportToJPG,
         FunctionChannels -> {"FileNames"},
-	Options -> {},
+    Options -> {"ImageSize"},
 	BinaryFormat -> True
 ];
 
