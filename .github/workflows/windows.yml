@@ -27,9 +27,7 @@ jobs:
         # set ASYPATH="C:\Program Files\Asymptote"
         # set "PATH=%ASYPATH%;%PATH%"
         refreshenv
-        echo %PATH%
-        echo "try asy using path"
-        asy.exe --help
+        echo "%PATH%"
         echo "try asy with the full path"
         C:\Program Files\Asymptote\asy.exe --help
         python -m pip install --upgrade pip
