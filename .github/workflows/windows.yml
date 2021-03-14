@@ -24,8 +24,13 @@ jobs:
         # sudo apt-get install -qq asymptote
         # choco install llvm        
         choco install  asymptote --pre --version 2.69  
-        set ASYPATH="C:\Program Files\Asymptote"
-        set "PATH=%ASYPATH%;%PATH%"
+        # set ASYPATH="C:\Program Files\Asymptote"
+        # set "PATH=%ASYPATH%;%PATH%"
+        refreshenv
+        echo "try asy using path"
+        asy.exe --help
+        echo "try asy with the full path"
+        C:\Program Files\Asymptote\asy.exe --help
         python -m pip install --upgrade pip
         python -m pip install -e git://github.com/mathics/Mathics.git#egg=Mathics3
     - name: Install Package
