@@ -24,12 +24,7 @@ jobs:
         # sudo apt-get install -qq asymptote
         # choco install llvm        
         choco install  asymptote --pre --version 2.69  
-        dir "C:\Program Files\"
-        dir "C:\ProgramData\chocolatey\"
-        dir "C:\ProgramData\chocolatey\bin"
-        dir "C:\ProgramData\chocolatey\lib"
-        dir "C:\ProgramData\chocolatey\lib\Asymptote"
-        dir "C:\ProgramData\chocolatey\lib\Asymptote\tools"
+        dir "C:\Program Files\Asymptote"
         echo "Looking for asy"
         WHERE asy.exe
         echo "Looking for asy"
