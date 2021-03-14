@@ -29,7 +29,7 @@ jobs:
         refreshenv
         echo "%PATH%"
         echo "try asy with the full path"
-        "C:\Program Files\Asymptote\asy.exe" --help
+        "C:\Program Files\Asymptote\asy.exe"
         python -m pip install --upgrade pip
         python -m pip install -e git://github.com/mathics/Mathics.git#egg=Mathics3
     - name: Install Package
