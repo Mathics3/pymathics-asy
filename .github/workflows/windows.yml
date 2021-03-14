@@ -24,12 +24,15 @@ jobs:
         # sudo apt-get install -qq asymptote
         # choco install llvm        
         choco install  asymptote --pre --version 2.69  
-        dir "C:\ProgramData\"
+        dir "C:\Program Files\"
         dir "C:\ProgramData\chocolatey\"
         dir "C:\ProgramData\chocolatey\bin"
         dir "C:\ProgramData\chocolatey\lib"
         dir "C:\ProgramData\chocolatey\lib\Asymptote"
-        where asy.exe
+        dir "C:\ProgramData\chocolatey\lib\Asymptote\tools"
+        echo "Looking for asy"
+        WHERE asy.exe
+        echo "Looking for asy"
         setx path "%path%;C:\ProgramData\chocolatey\bin"
         python -m pip install --upgrade pip
         python -m pip install -e git://github.com/mathics/Mathics.git#egg=Mathics3
