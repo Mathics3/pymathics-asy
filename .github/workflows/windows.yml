@@ -33,7 +33,7 @@ jobs:
         echo "Looking for asy"
         WHERE asy.exe
         echo "Looking for asy"
-        setx path "%path%;C:\ProgramData\chocolatey\bin"
+        setx path "%path%;C:\Program Files\Asymptote"
         python -m pip install --upgrade pip
         python -m pip install -e git://github.com/mathics/Mathics.git#egg=Mathics3
     - name: Install Package
