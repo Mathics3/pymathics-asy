@@ -25,7 +25,7 @@ jobs:
         # choco install llvm        
         choco install  asymptote --pre --version 2.69
         type C:\ProgramData\chocolatey\logs\chocolatey.log
-        setx path "%path%;C:\ProgramData\Asymptote"
+        setx path "%path%;C:\ProgramData\chocolatey\lib\asymptote"
         python -m pip install --upgrade pip
         python -m pip install -e git://github.com/mathics/Mathics.git#egg=Mathics3
     - name: Install Package
