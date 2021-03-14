@@ -23,12 +23,14 @@ jobs:
         # sudo apt-get update -qq && sudo apt-get install -qq liblapack-dev llvm-dev
         # sudo apt-get install -qq asymptote
         # choco install llvm        
-        choco install  asymptote --pre --version 2.69
+        choco install  asymptote --pre --version 2.69  
         dir "C:\ProgramData\"
         dir "C:\ProgramData\chocolatey\"
+        dir "C:\ProgramData\chocolatey\bin"
         dir "C:\ProgramData\chocolatey\lib"
         dir "C:\ProgramData\chocolatey\lib\Asymptote"
-        setx path "%path%;C:\ProgramData\chocolatey\lib\Asymptote"
+        where asy.exe
+        setx path "%path%;C:\ProgramData\chocolatey\bin"
         python -m pip install --upgrade pip
         python -m pip install -e git://github.com/mathics/Mathics.git#egg=Mathics3
     - name: Install Package
