@@ -54,6 +54,7 @@ class _AsyExporter(Builtin):
         asy_code = asy_code.replace("\\[DifferentialD]", "d ")
         fin = os.path.join(tempfile._get_default_tempdir(),
                            next(tempfile._get_candidate_names()))
+        from pymathics.asy import asy_path
         try:
             with open(fin, 'w+') as borrador:
                 borrador.write(asy_code)
@@ -61,13 +62,13 @@ class _AsyExporter(Builtin):
             evaluation.message(self.get_name(),"nowrtacs")
             return SymbolFailed
         if self.extension == "svg":
-            cmdline = ['asy', '-f', self.extension,
+            cmdline = [asy_path, '-f', self.extension,
           	       '--svgemulation' ,
                        '-o',
                        filename,
                        fin]
         else:
-            cmdline = ['asy', '-f', self.extension,
+            cmdline = [asy_path, '-f', self.extension,
                        '-o',
                        filename,
                        fin]
