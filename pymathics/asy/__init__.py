@@ -19,12 +19,18 @@ from mathics.core.expression import Expression, String, SymbolTrue
 from mathics.core.evaluation import Evaluation
 from mathics.builtin.importexport import Export as MathicsExport
 __all__ = ("__version__", "ExportToJPG", "ExportToPNG", "ExportToSVG", "ExportToPDF",
-           "AsyGraphicsBox", "pymathics_version_data")
+           "AsyGraphicsBox", "pymathics_version_data", "asy_path")
 
 
 ROOT_DIR = pkg_resources.resource_filename('pymathics.asy', '')
 
-
+import shutil
+try:
+    asy_path = shutil.which("asy")
+    print("asy found in ", asy_path)
+except:
+    print("asy path couldn't be found. Set to asy")
+    asy_path = "asy"
 
 def onload(definitions):
 #    from mathics.builtin import box_constructs

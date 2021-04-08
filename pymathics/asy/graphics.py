@@ -13,6 +13,8 @@ import base64
 from itertools import chain
 import numbers
 
+
+
 from mathics.builtin.base import (
     Builtin,
     InstanceableBuiltin,
@@ -132,9 +134,10 @@ clip(%s);
         if check_asy:
             import os
             from subprocess import DEVNULL, STDOUT, check_call
+            from pymathics.asy import asy_path
             import tempfile
             try:
-                check_call(['asy', '--version'], stdout=DEVNULL, stderr=DEVNULL)
+                check_call([asy_path, '--version'], stdout=DEVNULL, stderr=DEVNULL)
             except:
                 check_asy = False
                 evaluation.message("GraphicsBox", "asynotav")
@@ -154,7 +157,7 @@ clip(%s);
         if check_asy:
             try:
                 # check_call(['asy', '-f', 'svg', '--svgemulation' ,'-o', fout, fin], stdout=DEVNULL, stderr=DEVNULL)
-                check_call(['asy', '-f', 'png', '-render', '16', '-o', fout, fin], stdout=DEVNULL, stderr=DEVNULL)
+                check_call([asy_path, '-f', 'png', '-render', '16', '-o', fout, fin], stdout=DEVNULL, stderr=DEVNULL)
             except:
                 evaluation.message("GraphicsBox", "asyfail")
                 check_asy = False
