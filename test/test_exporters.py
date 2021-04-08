@@ -17,7 +17,8 @@ session = MathicsSession()
 
 def test_asymptote_cmd():
     from subprocess import DEVNULL, STDOUT, check_call
-    res = check_call(['asy', '--version'], stdout=DEVNULL, stderr=DEVNULL)
+    from pymathics.asy import asy_path
+    res = check_call([asy_path, '--version'], stdout=DEVNULL, stderr=DEVNULL)
     assert res == 0
 
 def check_evaluation(str_expr: str, str_expected: str, message=""):
