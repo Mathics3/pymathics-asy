@@ -2,9 +2,11 @@
 
 
 import os
+import pymathics.asy
 
 def test_asycmd():
     try:
-        assert os.system("asy -version") == 0
+        assert os.system(pymathics.asy.asy_path +" -version") == 0
     except:
+        print("path=", pymathics.asy.asy_path)
         assert False
