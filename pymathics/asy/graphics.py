@@ -41,10 +41,10 @@ from mathics.builtin.graphics import (GRAPHICS_OPTIONS,
                                       GraphicsBox,
                                       Graphics,
                                       asy_number,
-                                      create_pens,
                                       RGBColor)
 
-from mathics.builtin.graphics3d import Graphics3D, Graphics3DElements
+from mathics.formatter.asy import asy_create_pens
+from mathics.builtin.drawing.graphics3d import Graphics3D, Graphics3DElements
 
 
 class AsyGraphicsBox(GraphicsBox):
@@ -67,62 +67,26 @@ class AsyGraphicsBox(GraphicsBox):
         return AsyGraphicsBox(*leaves)
 
     def boxes_to_tex(self, leaves=None, **options):
-        if not leaves:
-            leaves = self._leaves
-        elements, calc_dimensions = self._prepare_elements(
-            leaves, options, max_width=450
-        )
-
-        xmin, xmax, ymin, ymax, w, h, width, height = calc_dimensions()
-        elements.view_width = w
-
-        asy_completely_visible = "\n".join(
-            element.to_asy()
-            for element in elements.elements
-            if element.is_completely_visible
-        )
-
-        asy_regular = "\n".join(
-            element.to_asy()
-            for element in elements.elements
-            if not element.is_completely_visible
-        )
-
-        asy_box = "box((%s,%s), (%s,%s))" % (
-            asy_number(xmin),
-            asy_number(ymin),
-            asy_number(xmax),
-            asy_number(ymax),
-        )
-
-        if self.background_color is not None:
-            color, opacity = self.background_color.to_asy()
-            asy_background = "filldraw(%s, %s);" % (asy_box, color)
-        else:
-            asy_background = ""
-
-        tex = r"""
-usepackage("amsmath");
-size(%scm, %scm);
-%s
-%s
-clip(%s);
-%s
-""" % (
-            asy_number(width / 60),
-            asy_number(height / 60),
-            asy_background,
-            asy_regular,
-            asy_box,
-            asy_completely_visible,
-        )
+        tex = super(AsyGraphicsBox, self).boxes_to_tex(leaves=leaves, **options)
         forxml = options.get("forxml", None)
-        if forxml:
-            return (tex, width, height)
+        if not forxml:
+            return tex
         else:
-            return "\n\\begin{asy}\n" + tex + "\n\\end{asy}\n"
+            # All this extra code is because
+            # in the core there is not a
+            # boxes_to_asy but a boxes_to_tex
+            # function, or a way to avoid the
+            # header needed in LaTeX.
+            tex = tex[13:-10]
+            widthheight = tex[28:]
+            endline = widthheight.find("\n")
+            widthheight = widthheight[:endline]
+            width, height = widthheight.split(",")
+            width = float(width[:-2])*60
+            height = float(height[:-4])*60
+            return (tex, width, height)
 
-    def boxes_to_xml(self, leaves=None, **options):
+    def boxes_to_mathml(self, leaves=None, **options):
         if leaves is None:
             leaves = self._leaves
         evaluation = options.get("evaluation", None)
@@ -140,7 +104,7 @@ clip(%s);
                 check_call([asy_path, '--version'], stdout=DEVNULL, stderr=DEVNULL)
             except:
                 check_asy = False
-                evaluation.message("GraphicsBox", "asynotav")
+                evaluation.message("AsyGraphicsBox", "asynotav")
                 Expression("Set", Symbol("Settings`UseAsyForGraphics2D"), SymbolFalse).evaluate(evaluation)
 
         if check_asy:
@@ -151,7 +115,7 @@ clip(%s);
                 with open(fin, 'w+') as borrador:
                     borrador.write(asy)
             except:
-                evaluation.message("GraphicsBox", "noasyfile")
+                evaluation.message("AsyGraphicsBox", "noasyfile")
                 check_asy = False
 
         if check_asy:
@@ -159,14 +123,13 @@ clip(%s);
                 # check_call(['asy', '-f', 'svg', '--svgemulation' ,'-o', fout, fin], stdout=DEVNULL, stderr=DEVNULL)
                 check_call([asy_path, '-f', 'png', '-render', '16', '-o', fout, fin], stdout=DEVNULL, stderr=DEVNULL)
             except:
-                evaluation.message("GraphicsBox", "asyfail")
+                evaluation.message("AsyGraphicsBox", "asyfail")
                 check_asy = False
 
         if check_asy:
             with open(fout, 'rb') as ff:
                 png = ff.read()
 
-            # svg = svg[svg.find("<svg "):]
             return (
                 '''
                 <mglyph width="%d" height="%d" src="data:image/png;base64,%s"/></mglyph>'''
@@ -178,47 +141,6 @@ clip(%s);
                 )
             )
         # Not using asymptote. Continue with the buggy backend...
-        elements, calc_dimensions = self._prepare_elements(leaves, options, neg_y=True)
-
-        xmin, xmax, ymin, ymax, w, h, width, height = calc_dimensions()
-        elements.view_width = w
-
-        svg = elements.to_svg()
-
-        if self.background_color is not None:
-            svg = '<rect x="%f" y="%f" width="%f" height="%f" style="fill:%s"/>%s' % (
-                xmin,
-                ymin,
-                w,
-                h,
-                self.background_color.to_css()[0],
-                svg,
-            )
-
-        xmin -= 1
-        ymin -= 1
-        w += 2
-        h += 2
-
-        svg_xml = """
-            <svg xmlns:svg="http://www.w3.org/2000/svg"
-                xmlns="http://www.w3.org/2000/svg"
-                version="1.1"
-                viewBox="%s">
-                %s
-            </svg>
-        """ % (
-            " ".join("%f" % t for t in (xmin, ymin, w, h)),
-            svg,
-        )
-
-        return (
-            '<img width="%dpx" height="%dpx" src="data:image/svg+xml;base64,%s"/>'
-            % (
-                int(width),
-                int(height),
-                base64.b64encode(svg_xml.encode("utf8")).decode("utf8"),
-            )
-        )
+        return super(AsyGraphicsBox, self).boxes_to_mathml(leaves=leaves, **options)
 
 

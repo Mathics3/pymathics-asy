@@ -17,7 +17,7 @@ from pymathics.asy.exportasy import (ExportToJPG,
 from pymathics.asy.graphics import (AsyGraphicsBox)
 from mathics.core.expression import Expression, String, SymbolTrue
 from mathics.core.evaluation import Evaluation
-from mathics.builtin.importexport import Export as MathicsExport
+from mathics.builtin.files_io.importexport import Export as MathicsExport
 __all__ = ("__version__", "ExportToJPG", "ExportToPNG", "ExportToSVG", "ExportToPDF",
            "AsyGraphicsBox", "pymathics_version_data", "asy_path")
 

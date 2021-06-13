@@ -13,7 +13,7 @@ import os
 from subprocess import DEVNULL, STDOUT, check_call
 from mathics.core.expression import (Expression, String, BoxError, SymbolFailed, SymbolNull)
 from mathics_scanner import replace_wl_with_plain_text
-from mathics.builtin.image import Image
+from mathics.builtin.drawing.image import Image
 from mathics.builtin import Builtin
 
 class _AsyExporter(Builtin):
