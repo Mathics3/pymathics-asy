@@ -47,12 +47,14 @@ from mathics.builtin.graphics import (
 from mathics.formatter.asy import asy_create_pens
 from mathics.builtin.drawing.graphics3d import Graphics3D, Graphics3DElements
 
+from mathics.core.attributes import hold_all, protected, read_protected
+
 
 class AsyGraphicsBox(GraphicsBox):
     context = "System`"
     options = Graphics.options
     _graphics = Graphics(expression=False)
-    attributes = ("HoldAll", "ReadProtected")
+    attributes = hold_all | protected | read_protected
 
     messages = {
         "asynotav": "Asymptote is not available in this system. Using the buggy backend.",
