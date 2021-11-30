@@ -28,7 +28,7 @@ setup(
     version=__version__,
     packages=find_namespace_packages(include=["pymathics.asy.*"]),
     install_requires=["mathics3>=1.1.0"],
-    package_data = {"pymathics-asy": ["autoload/formats/*/Export.m"]},
+    package_data={"pymathics-asy": ["autoload/formats/*/Export.m"]},
     # don't pack Mathics in egg because of media files, etc.
     zip_safe=False,
     # metadata for upload to PyPI
@@ -53,5 +53,3 @@ setup(
 
 
 # Install autoload path
-
-

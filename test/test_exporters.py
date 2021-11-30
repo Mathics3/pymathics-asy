@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-#import sys
+# import sys
 import pytest
 
 # from helper import session, check_evaluation
@@ -18,8 +18,10 @@ session = MathicsSession()
 def test_asymptote_cmd():
     from subprocess import DEVNULL, STDOUT, check_call
     from pymathics.asy import asy_path
-    res = check_call([asy_path, '--version'], stdout=DEVNULL, stderr=DEVNULL)
+
+    res = check_call([asy_path, "--version"], stdout=DEVNULL, stderr=DEVNULL)
     assert res == 0
+
 
 def check_evaluation(str_expr: str, str_expected: str, message=""):
     """Helper function to test that a WL expression against
@@ -27,38 +29,42 @@ def check_evaluation(str_expr: str, str_expected: str, message=""):
     result = session.evaluate(str_expr)
     expected = session.evaluate(str_expected)
 
-#    print(time.asctime())
-#   print(message)
+    #    print(time.asctime())
+    #   print(message)
     if message:
         assert result == expected, message
     else:
         assert result == expected
 
 
-tests = ['A',
-         'MatrixForm[{{a,n},{c,d}}]; a+b',
-         'Integrate[f[x],x]',
-         'Evaluate[Plot[Cos[x],{x,0,20}]]',
-#         'Evaluate[Plot3D[Cos[x*y],{x,-1,1},{y,-1,1}]]',
-         'Evaluate[DensityPlot[Cos[x*y],{x,-1,1},{y,-1,1}]]',
+tests = [
+    "A",
+    "MatrixForm[{{a,n},{c,d}}]; a+b",
+    "Integrate[f[x],x]",
+    "Evaluate[Plot[Cos[x],{x,0,20}]]",
+    #         'Evaluate[Plot3D[Cos[x*y],{x,-1,1},{y,-1,1}]]',
+    "Evaluate[DensityPlot[Cos[x*y],{x,-1,1},{y,-1,1}]]",
 ]
 
-fileformats = ["test.pdf", 
-               "test.svg", 
-               "test.png", 
-#               "test.jpg"
+fileformats = [
+    "test.pdf",
+    "test.svg",
+    "test.png",
+    #               "test.jpg"
 ]
+
 
 @pytest.mark.parametrize(
     "str_expr, str_expected",
-    [ ('LoadModule["pymathics.asy"]', '"pymathics.asy"') ] +\
-    [  ('Export[$TemporaryDirectory<>"/"<>"'+ filename +'", '+ test + ']',
-       f'$TemporaryDirectory <> "/" <> "{filename}"')
+    [('LoadModule["pymathics.asy"]', '"pymathics.asy"')]
+    + [
+        (
+            'Export[$TemporaryDirectory<>"/"<>"' + filename + '", ' + test + "]",
+            f'$TemporaryDirectory <> "/" <> "{filename}"',
+        )
         for test in tests
         for filename in fileformats
-    ]
+    ],
 )
 def test_evaluation(str_expr: str, str_expected: str, message=""):
     check_evaluation(str_expr, str_expected, message)
-
-

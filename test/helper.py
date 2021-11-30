@@ -7,6 +7,7 @@ from mathics.session import MathicsSession
 session = MathicsSession(add_builtin=True, catch_interrupt=False)
 # session.evaluate('LoadModule["pymathics.asy"]')
 
+
 def check_evaluation(str_expr: str, str_expected: str, message=""):
     """Helper function to test that a WL expression against
     its results"""
