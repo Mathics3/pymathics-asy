@@ -18,10 +18,10 @@ from mathics.core.expression import BoxError, Expression, String
 from mathics.core.symbols import SymbolNull
 from mathics.core.systemsymbols import SymbolFailed
 from mathics_scanner import replace_wl_with_plain_text
-
+from mathics.core.attributes import A_HOLD_REST
 
 class _AsyExporter(Builtin):
-    attributes = ("HoldRest",)
+    attributes = A_HOLD_REST
 
     messages = {
         "boxerr": "Not able to interpret box `1`",

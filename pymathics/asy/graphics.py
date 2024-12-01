@@ -13,33 +13,23 @@ import numbers
 from itertools import chain
 from math import atan2, ceil, cos, degrees, exp, floor, log10, pi, radians, sin, sqrt
 
+from mathics.builtin.box.graphics import GraphicsBox
 from mathics.builtin.drawing.graphics3d import Graphics3D, Graphics3DElements
-from mathics.builtin.box.graphics import(    GraphicsBox,)
-from mathics.builtin.graphics import (
-    GRAPHICS_OPTIONS,
-    Graphics,
-    RGBColor,
-)
+from mathics.builtin.graphics import GRAPHICS_OPTIONS, Graphics, RGBColor
 from mathics.builtin.options import options_to_rules
-from mathics.core.atoms import (
-    Integer,
-    Rational,
-    Real,
-    String,
-    Symbol,
-)
-from mathics.core.convert.python import from_python
+from mathics.core.atoms import Integer, Rational, Real, String
 from mathics.core.builtin import Builtin, BuiltinElement
+from mathics.core.convert.python import from_python
 from mathics.core.expression import Expression
-from mathics.core.symbols import Symbol, SymbolFalse, SymbolTrue,    strip_context
+from mathics.core.symbols import Symbol, SymbolFalse, SymbolTrue, strip_context
 from mathics.format.asy import asy_create_pens
-
+from mathics.core.attributes import A_HOLD_ALL, A_READ_PROTECTED
 
 class AsyGraphicsBox(GraphicsBox):
     context = "System`"
     options = Graphics.options
     _graphics = Graphics(expression=False)
-    attributes = ("HoldAll", "ReadProtected")
+    attributes = A_HOLD_ALL| A_READ_PROTECTED
 
     messages = {
         "asynotav": "Asymptote is not available in this system. Using the buggy backend.",

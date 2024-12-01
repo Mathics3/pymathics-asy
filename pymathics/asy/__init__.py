@@ -10,8 +10,11 @@ import os
 
 import pkg_resources
 from mathics.builtin.files_io.importexport import Export as MathicsExport
+from mathics.core.atoms import String
 from mathics.core.evaluation import Evaluation
-from mathics.core.expression import Expression, String, SymbolTrue
+from mathics.core.expression import Expression
+from mathics.core.symbols import Symbol, SymbolTrue
+from mathics.core.systemsymbols import SymbolGet
 
 from pymathics.asy.exportasy import ExportToJPG, ExportToPDF, ExportToPNG, ExportToSVG
 from pymathics.asy.graphics import AsyGraphicsBox
@@ -49,7 +52,7 @@ def onload(definitions):
     definitions.set_ownvalue("Settings`UseAsyForGraphics2D", SymbolTrue)
     for root, dirs, files in os.walk(os.path.join(ROOT_DIR, "autoload")):
         for path in [os.path.join(root, f) for f in files if f.endswith(".m")]:
-            Expression("Get", String(path)).evaluate(Evaluation(definitions))
+            Expression(SymbolGet, String(path)).evaluate(Evaluation(definitions))
 
 
 # To be recognized as an external mathics module, the following variable
