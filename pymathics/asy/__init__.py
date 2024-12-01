@@ -6,25 +6,36 @@ This module provides a replacement for the graphics subsystem using asymptote to
 
 """
 
-import pkg_resources
 import os
 
-from pymathics.asy.version import __version__
-from pymathics.asy.exportasy import (ExportToJPG,
-                                     ExportToPNG,
-                                     ExportToSVG,
-                                     ExportToPDF)
-from pymathics.asy.graphics import (AsyGraphicsBox)
-from mathics.core.expression import Expression, String, SymbolTrue
-from mathics.core.evaluation import Evaluation
+import pkg_resources
 from mathics.builtin.files_io.importexport import Export as MathicsExport
-__all__ = ("__version__", "ExportToJPG", "ExportToPNG", "ExportToSVG", "ExportToPDF",
-           "AsyGraphicsBox", "pymathics_version_data", "asy_path")
+from mathics.core.atoms import String
+from mathics.core.evaluation import Evaluation
+from mathics.core.expression import Expression
+from mathics.core.symbols import Symbol, SymbolTrue
+from mathics.core.systemsymbols import SymbolGet
+
+from pymathics.asy.exportasy import ExportToJPG, ExportToPDF, ExportToPNG, ExportToSVG
+from pymathics.asy.graphics import AsyGraphicsBox
+from pymathics.asy.version import __version__
+
+__all__ = (
+    "__version__",
+    "ExportToJPG",
+    "ExportToPNG",
+    "ExportToSVG",
+    "ExportToPDF",
+    "AsyGraphicsBox",
+    "pymathics_version_data",
+    "asy_path",
+)
 
 
-ROOT_DIR = pkg_resources.resource_filename('pymathics.asy', '')
+ROOT_DIR = pkg_resources.resource_filename("pymathics.asy", "")
 
 import shutil
+
 try:
     asy_path = shutil.which("asy")
     print("asy found in ", asy_path)
@@ -32,26 +43,26 @@ except:
     print("asy path couldn't be found. Set to asy")
     asy_path = "asy"
 
+
 def onload(definitions):
-#    from mathics.builtin import box_constructs
-#    box_constructs["System`GraphicsBox"] = AsyGraphicsBox(expression=False)
-#    box_constructs["System`Graphics3DBox"] = AsyGraphics3DBox(expression=False)
+    #    from mathics.builtin import box_constructs
+    #    box_constructs["System`GraphicsBox"] = AsyGraphicsBox(expression=False)
+    #    box_constructs["System`Graphics3DBox"] = AsyGraphics3DBox(expression=False)
     MathicsExport._extdict["pdf"] = "PDF"
     definitions.set_ownvalue("Settings`UseAsyForGraphics2D", SymbolTrue)
     for root, dirs, files in os.walk(os.path.join(ROOT_DIR, "autoload")):
         for path in [os.path.join(root, f) for f in files if f.endswith(".m")]:
-            Expression("Get", String(path)).evaluate(Evaluation(definitions))
+            Expression(SymbolGet, String(path)).evaluate(Evaluation(definitions))
+
 
 # To be recognized as an external mathics module, the following variable
 # is required:
 #
 
 
-
-
 pymathics_version_data = {
     "author": "The Mathics Team",
     "version": __version__,
     "requires": [],
-    "onload" : onload
+    "onload": onload,
 }
